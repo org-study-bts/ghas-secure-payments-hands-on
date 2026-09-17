@@ -6,9 +6,7 @@ on:
     types: [opened, synchronize, reopened, edited, closed]
 
 permissions:
-  contents: write
-  actions: write
-  issues: write
+  contents: read
   pull-requests: read
 
 env:
@@ -48,6 +46,10 @@ jobs:
       github.event.pull_request.merged == true
     needs: find-exercise
     uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+    permissions:
+      contents: write
+      issues: write
+      actions: write
     with:
       issue-url: ${{ needs.find-exercise.outputs.issue-url }}
       exercise-title: "GHAS Secure Payments Hands-on"

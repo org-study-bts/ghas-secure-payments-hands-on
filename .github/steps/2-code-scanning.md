@@ -12,6 +12,7 @@ Depois da correção, use:
 
 > Analise a correção proposta para este alerta. Verifique se ela elimina a causa raiz, preserva o comportamento esperado e possui testes suficientes. Não considere o alerta resolvido sem validação por testes e revisão humana.
 
+Remova o fixture em um commit chamado **`fix: remove CodeQL unsafe fixture`**.
 Execute `./mvnw test`, faça push e confira a nova análise. O fixture está em
 `src/main/java` para que o build Java o torne analisável; é fictício, isolado e
 não contém segredo real. Copilot pode errar; sua sugestão não substitui CodeQL,

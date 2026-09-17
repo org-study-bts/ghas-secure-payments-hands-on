@@ -5,7 +5,6 @@ on:
     branches: [ghas-baseline]
     paths:
       - pom.xml
-      - .github/steps/3-dependencies.md
 
 permissions:
   contents: read
@@ -30,6 +29,7 @@ jobs:
           distribution: temurin
       - name: Require dependency update and tests
         run: |
+          test "$(git log -1 --pretty=%s)" = "fix: update vulnerable dependency"
           ! grep -q '<version>1.9</version>' pom.xml
           grep -q 'commons-text' pom.xml
           ./mvnw --batch-mode --no-transfer-progress test

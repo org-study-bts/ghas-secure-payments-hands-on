@@ -10,7 +10,7 @@ permissions:
   pull-requests: read
 
 env:
-  TOOLKIT_REF: 2bed354b84a2633bc05cb5d6c8658bfa47345445
+  TOOLKIT_REF: 591d7ca109412b3ff9c70b15a31377031e11e4c4
 
 jobs:
   find-exercise:
@@ -18,7 +18,7 @@ jobs:
       github.event_name == 'pull_request' &&
       github.event.pull_request.title == 'fix: update vulnerable payment dependency' &&
       (github.event.action != 'closed' || github.event.pull_request.merged == true)
-    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@591d7ca109412b3ff9c70b15a31377031e11e4c4
 
   check-participant-pr:
     if: |
@@ -45,7 +45,7 @@ jobs:
       github.event.action == 'closed' &&
       github.event.pull_request.merged == true
     needs: find-exercise
-    uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+    uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@591d7ca109412b3ff9c70b15a31377031e11e4c4
     permissions:
       contents: write
       issues: write

@@ -1,7 +1,7 @@
 package fictional.training;
 
 /**
- * CONTROLLED, FICTIONAL TRAINING FIXTURE. It is not compiled or used by the app.
+ * CONTROLLED, FICTIONAL TRAINING FIXTURE. It compiles but is not used by the app.
  * Phase 2 removes this file (or replaces it with a safe API) to demonstrate CodeQL.
  */
 final class UnsafeCodeqlDemo {

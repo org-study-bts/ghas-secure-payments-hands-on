@@ -13,6 +13,14 @@ Exercício introdutório de **GitHub Advanced Security (GHAS)** em português br
 ## Pré-requisitos e Copy Exercise
 
 1. Use **Copy Exercise** no repositório de treinamento para criar uma cópia pública.
+
+   [![Copy Exercise](https://img.shields.io/badge/Copy%20Exercise-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/new?template_owner=org-study-bts&template_name=ghas-secure-payments-hands-on&owner=%40me&name=ghas-secure-payments-hands-on&description=Exercise%3A%20GHAS%20Secure%20Payments%20Hands-on&visibility=public)
+
+   O botão é um link estático: sua validade pode ser conferida pelo formato e
+   pelos parâmetros, mas a criação da cópia é uma operação do GitHub.com.
+   Conta, permissões, template público e políticas precisam ser validados
+   operacionalmente na própria conta; se isso não for testado, registre
+   **Pendente**, nunca **Validado**.
 2. Abra **Code > Codespaces > Create codespace on main**. Alternativamente, use Java 17 e Maven localmente.
 3. Aguarde a criação do Codespace e siga as fases em `.github/steps/`.
 
@@ -42,10 +50,11 @@ POST /payments/{id}/authorize
 Não use dados reais. O corpo de criação é, por exemplo, `{"amount":12.50,"currency":"BRL","description":"Demo payment"}`. A validação rejeita valor não positivo, moeda fora de três letras e descrição vazia ou longa demais.
 
 ```bash
-mvn test
-mvn spring-boot:run
+./mvnw test
+./mvnw spring-boot:run
 ```
 
+No Windows use `mvnw.cmd test`. `mvn test` é somente fallback documentado.
 Com a aplicação em execução, teste `http://localhost:8080/health`. No Codespaces, use a porta encaminhada 8080. Os testes cobrem inicialização, saúde, criação, consulta, autorização, validação e o comportamento seguro tratado na fase de CodeQL.
 
 ## Fases
@@ -55,7 +64,11 @@ Com a aplicação em execução, teste `http://localhost:8080/health`. No Codesp
 3. **Dependabot e Dependency Review** — dependency graph, alertas, atualizações e revisão de pull request.
 4. **Triagem e validação** — risco contextual, correção, reanálise, encerramento e prevenção.
 
-As instruções estão em `.github/steps/`. Os workflows correspondentes são determinísticos quando possível e validam arquivos e testes; a análise do GitHub pode continuar após o workflow terminar.
+As instruções estão em `.github/steps/`. O workflow de progressão inicial usa
+`skills/exercise-toolkit` (ref imutável confirmada); CodeQL, testes e Dependency
+Review permanecem em workflows separados. Os workflows são determinísticos
+quando possível e validam arquivos e testes; a análise do GitHub pode continuar
+após o workflow terminar.
 
 ## Segurança demonstrada
 
@@ -76,7 +89,7 @@ Secret Scanning procura padrões que se parecem com credenciais; Push Protection
 ## Troubleshooting
 
 - Se `mvn` não for encontrado localmente, reabra o Codespace ou instale Java 17/Maven; o `devcontainer.json` já prepara ambos.
-- Se CodeQL ainda estiver processando, aguarde a análise e use `mvn test` como validação local.
+- Se CodeQL ainda estiver processando, aguarde a análise e use `./mvnw test` como validação local.
 - Se Dependabot não abrir PR, confirme que o dependency graph está habilitado e trate a configuração como material demonstrativo.
 - Se Secret Scanning ou Security Overview não aparecer, registre a limitação do plano/permissão e siga com os artefatos locais.
 - Se uma Action for bloqueada por política, leia o log e execute os testes localmente; não afrouxe permissões sem revisão.

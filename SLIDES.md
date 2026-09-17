@@ -7,7 +7,7 @@ Cada slide contém objetivo, mensagem principal e demonstração.
 | 1 | 3 min | Abertura | API fictícia, escopo e regra de não usar dados reais. | Segurança é processo, não promessa. |
 | 2 | 5 min | Shift-left | Encontrar risco perto do commit e do pull request. | Feedback cedo reduz custo. |
 | 3 | 5 min | Visão GHAS | Code Scanning, Secret Protection, Dependabot e triagem. | Ferramentas complementares. |
-| 4 | 5 min | Codespaces e baseline | Estrutura, `mvn test`, Actions e permissões mínimas. | Demo: `/health` e workflow. |
+| 4 | 5 min | Codespaces e baseline | Estrutura, `./mvnw test`, Actions e permissões mínimas. | Demo: `/health` e workflow. |
 | 5 | 10 min | Code Scanning | Alertas, severidade, security severity e fluxo de dados. | Demo: abrir alerta CodeQL. |
 | 6 | 10 min | Corrigir a causa raiz | Fixture controlado, testes e nova análise. | Copilot explica; humano decide. |
 | 7 | 8 min | Dependências | Diretas, transitivas, advisories e dependency graph. | Pergunta: o que está instalado? |

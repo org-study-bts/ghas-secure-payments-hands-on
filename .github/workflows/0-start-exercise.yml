@@ -6,23 +6,45 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  actions: write
+  issues: write
 
 jobs:
-  verify-exercise-scaffold:
-    name: Verify exercise scaffold
+  start-exercise:
+    name: Start exercise
+    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+    with:
+      exercise-title: "GHAS Secure Payments Hands-on"
+      intro-message: |
+        Crie a branch ghas-baseline, execute ./mvnw test e faça o commit
+        "chore: establish GHAS baseline". Depois siga as quatro fases.
+
+  publish-first-step:
+    name: Publish phase 1
+    needs: start-exercise
     runs-on: ubuntu-latest
+    env:
+      ISSUE_REPOSITORY: ${{ github.repository }}
+      ISSUE_NUMBER: ${{ needs.start-exercise.outputs.issue-number }}
+      TOOLKIT_REF: 2bed354b84a2633bc05cb5d6c8658bfa47345445
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-      - name: Check Skills structure
-        shell: bash
-        run: |
-          test -f README.md
-          test -f pom.xml
-          test -f .devcontainer/devcontainer.json
-          test -f .github/steps/1-baseline.md
-          test -f .github/steps/2-code-scanning.md
-          test -f .github/steps/3-dependencies.md
-          test -f .github/steps/4-triage-and-validation.md
-          echo "Scaffold pronto. Continue pela Fase 1."
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v4.2.2
+        with:
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: ${{ env.TOOLKIT_REF }}
+      - uses: GrantBirki/comment@v2.1.1
+        with:
+          repository: ${{ env.ISSUE_REPOSITORY }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          file: .github/steps/1-baseline.md
+      - uses: GrantBirki/comment@v2.1.1
+        with:
+          repository: ${{ env.ISSUE_REPOSITORY }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          file: exercise-toolkit/markdown-templates/step-feedback/watching-for-progress.md
+      - run: gh workflow enable "Step 1 - baseline"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

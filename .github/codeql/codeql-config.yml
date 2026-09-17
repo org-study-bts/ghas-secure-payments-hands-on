@@ -1,6 +1,5 @@
 name: secure-payments-java
 paths:
   - src
-  - .github/codeql/unsafe-demo
 paths-ignore:
   - '**/target/**'

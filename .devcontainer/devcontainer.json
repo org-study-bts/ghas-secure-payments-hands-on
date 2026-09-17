@@ -5,5 +5,5 @@
     "ghcr.io/devcontainers/features/maven:1": {}
   },
   "forwardPorts": [8080],
-  "postCreateCommand": "mvn -q test"
+  "postCreateCommand": "./mvnw -q test"
 }

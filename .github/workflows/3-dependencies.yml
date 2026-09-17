@@ -1,4 +1,4 @@
-name: Phase 3 - dependencies
+name: Phase 3 - dependency review
 on:
   pull_request:
   push:
@@ -11,13 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: actions/dependency-review-action@v4.6.2
+      - uses: actions/dependency-review-action@v5.0.0
         with:
           fail-on-severity: high
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: actions/setup-java@v4.7.1
-        with: { java-version: '17', distribution: temurin, cache: maven }
-      - run: mvn --batch-mode --no-transfer-progress test

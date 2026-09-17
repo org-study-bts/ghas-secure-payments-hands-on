@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: actions/dependency-review-action@v5.0.0
+      - name: Run Dependency Review when available
+        continue-on-error: true
+        uses: actions/dependency-review-action@v5.0.0
         with:
           fail-on-severity: high

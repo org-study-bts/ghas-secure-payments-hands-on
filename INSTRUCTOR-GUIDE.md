@@ -49,6 +49,7 @@ um link estático, uma expectativa ou uma captura em evidência operacional.
 | Validado | Arquivos YAML, wrapper e `./mvnw test` | 2026-09-16, execução local | Validado |
 | Pendente | Links externos/Copy Exercise e operação no GitHub.com | 2026-09-16, validação HTTP não conclusiva neste ambiente | Pendente |
 | Pendente | Copy Exercise, Codespaces, CodeQL UI, Dependabot UI, Secret Scanning e Push Protection | requer conta principal/não-admin ou GitHub.com | Pendente |
+| Não determinístico | Dependency Review | `v5.0.0` válida, mas o repositório atual informa que o Dependency Graph está desabilitado; a etapa usa `continue-on-error` | Não bloqueante |
 | Não determinístico | Alertas, reanálise assíncrona, advisories e Security Overview | depende de plano, fila e cobertura | Não determinístico |
 | Fallback | `mvn test`, revisão do diff e testes locais | somente se wrapper/serviço não puder rodar | Fallback |
 

@@ -13,7 +13,7 @@ permissions:
 jobs:
   start-exercise:
     name: Start exercise
-    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@591d7ca109412b3ff9c70b15a31377031e11e4c4
+    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@c5d4206b071280ab6f797a1a76857a7812e7e937
     with:
       exercise-title: "GHAS Secure Payments Hands-on"
       intro-message: |

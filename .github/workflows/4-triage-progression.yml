@@ -45,7 +45,7 @@ jobs:
       github.event.action == 'closed' &&
       github.event.pull_request.merged == true
     needs: find-exercise
-    uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@591d7ca109412b3ff9c70b15a31377031e11e4c4
+    uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@c5d4206b071280ab6f797a1a76857a7812e7e937
     permissions:
       contents: write
       issues: write

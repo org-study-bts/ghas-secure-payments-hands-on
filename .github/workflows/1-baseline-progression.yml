@@ -1,0 +1,74 @@
+name: Step 1 - baseline
+
+on:
+  push:
+    branches: [ghas-baseline]
+
+permissions:
+  contents: read
+
+env:
+  TOOLKIT_REF: 2bed354b84a2633bc05cb5d6c8658bfa47345445
+
+jobs:
+  find-exercise:
+    permissions:
+      contents: read
+      issues: read
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+
+  check-baseline:
+    name: Check baseline branch, commit, wrapper and tests
+    needs: find-exercise
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-java@v4.7.1
+        with:
+          java-version: '17'
+          distribution: temurin
+      - name: Check deterministic baseline artifacts
+        run: |
+          test "${GITHUB_REF_NAME}" = "ghas-baseline"
+          test "$(git log -1 --pretty=%s)" = "chore: establish GHAS baseline"
+          test -x mvnw
+          test -f mvnw.cmd
+          test -f .mvn/wrapper/maven-wrapper.properties
+          ./mvnw --batch-mode --no-transfer-progress test
+
+  publish-next-step:
+    needs: [find-exercise, check-baseline]
+    permissions:
+      contents: read
+      actions: write
+      issues: write
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_REPOSITORY: ${{ github.repository }}
+      ISSUE_NUMBER: ${{ needs.find-exercise.outputs.issue-number }}
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v4.2.2
+        with:
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: ${{ env.TOOLKIT_REF }}
+      - uses: GrantBirki/comment@v2.1.1
+        with:
+          repository: ${{ env.ISSUE_REPOSITORY }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          file: exercise-toolkit/markdown-templates/step-feedback/step-finished-prepare-next-step.md
+          vars: |
+            next_step_number: 2
+      - uses: GrantBirki/comment@v2.1.1
+        with:
+          repository: ${{ env.ISSUE_REPOSITORY }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          file: .github/steps/2-code-scanning.md
+      - run: gh workflow disable "${{ github.workflow }}" && gh workflow enable "Step 2 - code scanning"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

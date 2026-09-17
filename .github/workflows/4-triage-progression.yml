@@ -1,0 +1,55 @@
+name: Step 4 - triage and validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited, closed]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  TOOLKIT_REF: 2bed354b84a2633bc05cb5d6c8658bfa47345445
+
+jobs:
+  find-exercise:
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'fix: update vulnerable payment dependency' &&
+      (github.event.action != 'closed' || github.event.pull_request.merged == true)
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+
+  check-participant-pr:
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'fix: update vulnerable payment dependency' &&
+      github.event.action != 'closed'
+    needs: find-exercise
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Check participant PR and triage artifact
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          test "$PR_TITLE" = "fix: update vulnerable payment dependency"
+          test -f docs/alert-triage.md
+          grep -q 'Triage decision' docs/alert-triage.md
+          ./mvnw --batch-mode --no-transfer-progress test
+
+  finish-exercise:
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'fix: update vulnerable payment dependency' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true
+    needs: find-exercise
+    uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+    permissions:
+      contents: write
+      issues: write
+      actions: write
+    with:
+      issue-url: ${{ needs.find-exercise.outputs.issue-url }}
+      exercise-title: "GHAS Secure Payments Hands-on"

@@ -1,0 +1,17 @@
+name: Phase 1 - baseline progression
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Verify baseline artifacts
+        run: |
+          test -f pom.xml
+          test -f mvnw
+          test -f mvnw.cmd
+          test -f .mvn/wrapper/maven-wrapper.properties

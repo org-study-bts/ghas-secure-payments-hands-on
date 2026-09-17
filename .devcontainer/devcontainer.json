@@ -1,0 +1,9 @@
+{
+  "name": "Secure Payments Demo",
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/maven:1": {}
+  },
+  "forwardPorts": [8080],
+  "postCreateCommand": "./mvnw -q test"
+}

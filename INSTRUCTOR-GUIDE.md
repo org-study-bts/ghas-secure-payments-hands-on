@@ -29,6 +29,12 @@ O toolkit usado pelo workflow inicial é `skills/exercise-toolkit` na ref
 
 Mostre primeiro a baseline. Na fase CodeQL, explique que o fixture é controlado e não é uma instrução para explorar sistemas: o objetivo é reconhecer origem, fluxo e causa raiz. Mostre o alerta, peça ao Copilot somente explicação, revise a sugestão e remova o fixture. Na fase de dependências, mostre como o dependency graph, Dependabot e dependency review respondem a perguntas diferentes. Finalize com a sequência de triagem: detecção, análise, risco, priorização, correção, validação, encerramento e prevenção.
 
+As progressões 2 e 3 só executam após os commits determinísticos
+`fix: remove CodeQL unsafe fixture` e `fix: update vulnerable dependency`,
+respectivamente. O push inicial da branch `ghas-baseline` não executa essas
+verificações; esse comportamento é protegido por condições explícitas e ainda
+deve ser confirmado em uma cópia pública.
+
 ## Perguntas frequentes e alternativas
 
 - **“Por que não apareceu o alerta?”** A análise é assíncrona, a cobertura varia e o plano/permissão pode não habilitar o recurso. Use o diff, `./mvnw test` e a discussão do fixture como evidência didática.

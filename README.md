@@ -72,7 +72,7 @@ após o workflow terminar.
 
 ## Segurança demonstrada
 
-O fixture em `.github/codeql/unsafe-demo/` é código fictício, isolado e não é usado como serviço. Ele serve para discutir uma construção insegura sem fornecer um exploit contra terceiros. Remova-o ou substitua-o por uma implementação segura na fase 2.
+O fixture em `src/main/java/com/example/securepayments/training/UnsafeCodeqlDemo.java` é código fictício, isolado e não é usado como serviço. Ele serve para discutir uma construção insegura sem fornecer um exploit contra terceiros. Remova-o ou substitua-o por uma implementação segura na fase 2.
 
 Secret Scanning procura padrões que se parecem com credenciais; Push Protection tenta impedir que cheguem ao repositório. Este exercício **não contém segredo real, token funcional, chave privada, dado pessoal ou dado financeiro**. Nunca crie um segredo real para testar: uma exposição real deve ser revogada/rotacionada junto ao provedor, removida do histórico quando necessário e substituída por credencial de menor privilégio. A detecção de um marcador fictício não é garantida e não libera nenhuma fase.
 
@@ -88,7 +88,7 @@ Secret Scanning procura padrões que se parecem com credenciais; Push Protection
 
 ## Troubleshooting
 
-- Se `mvn` não for encontrado localmente, reabra o Codespace ou instale Java 17/Maven; o `devcontainer.json` já prepara ambos.
+- Se `./mvnw` falhar, confirme Java 17, permissão executável no `mvnw`, acesso ao Maven Central e conclusão do `postCreateCommand` do Codespace. No Windows use `mvnw.cmd`; `mvn test` é apenas fallback quando Maven global estiver disponível.
 - Se CodeQL ainda estiver processando, aguarde a análise e use `./mvnw test` como validação local.
 - Se Dependabot não abrir PR, confirme que o dependency graph está habilitado e trate a configuração como material demonstrativo.
 - Se Secret Scanning ou Security Overview não aparecer, registre a limitação do plano/permissão e siga com os artefatos locais.

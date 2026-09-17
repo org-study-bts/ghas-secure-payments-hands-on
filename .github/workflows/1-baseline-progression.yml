@@ -6,19 +6,22 @@ on:
 
 permissions:
   contents: read
-  actions: write
-  issues: write
 
 env:
   TOOLKIT_REF: 2bed354b84a2633bc05cb5d6c8658bfa47345445
 
 jobs:
   find-exercise:
+    permissions:
+      contents: read
+      issues: read
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
 
   check-baseline:
     name: Check baseline branch, commit, wrapper and tests
     needs: find-exercise
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
@@ -39,6 +42,10 @@ jobs:
 
   publish-next-step:
     needs: [find-exercise, check-baseline]
+    permissions:
+      contents: read
+      actions: write
+      issues: write
     runs-on: ubuntu-latest
     env:
       ISSUE_REPOSITORY: ${{ github.repository }}

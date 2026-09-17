@@ -16,11 +16,17 @@ env:
 
 jobs:
   find-exercise:
-    if: github.event_name == 'pull_request' && (github.event.action != 'closed' || github.event.pull_request.merged == true)
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'fix: update vulnerable payment dependency' &&
+      (github.event.action != 'closed' || github.event.pull_request.merged == true)
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
 
   check-participant-pr:
-    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'fix: update vulnerable payment dependency' &&
+      github.event.action != 'closed'
     needs: find-exercise
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +41,11 @@ jobs:
           ./mvnw --batch-mode --no-transfer-progress test
 
   finish-exercise:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'fix: update vulnerable payment dependency' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true
     needs: find-exercise
     uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
     with:

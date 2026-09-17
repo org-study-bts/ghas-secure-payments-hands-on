@@ -35,12 +35,12 @@ jobs:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
           ref: ${{ env.TOOLKIT_REF }}
-      - uses: GrantBirki/comment@v2.1.1
+      - uses: GrantBirki/comment@v3.0.3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
           file: .github/steps/1-baseline.md
-      - uses: GrantBirki/comment@v2.1.1
+      - uses: GrantBirki/comment@v3.0.3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}

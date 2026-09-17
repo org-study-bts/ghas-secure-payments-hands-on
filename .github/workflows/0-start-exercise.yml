@@ -13,7 +13,7 @@ permissions:
 jobs:
   start-exercise:
     name: Start exercise
-    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@2bed354b84a2633bc05cb5d6c8658bfa47345445
+    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@591d7ca109412b3ff9c70b15a31377031e11e4c4
     with:
       exercise-title: "GHAS Secure Payments Hands-on"
       intro-message: |
@@ -27,7 +27,7 @@ jobs:
     env:
       ISSUE_REPOSITORY: ${{ github.repository }}
       ISSUE_NUMBER: ${{ needs.start-exercise.outputs.issue-number }}
-      TOOLKIT_REF: 2bed354b84a2633bc05cb5d6c8658bfa47345445
+      TOOLKIT_REF: 591d7ca109412b3ff9c70b15a31377031e11e4c4
     steps:
       - uses: actions/checkout@v4.2.2
       - uses: actions/checkout@v4.2.2
